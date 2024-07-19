@@ -56,6 +56,9 @@ function parseRow(
   const device = parseDevice($, $(children[2]));
   if (!device) throw new Error(`No ${device} found`);
 
+  // TODO: some of the descriptions contain markup for
+  // preview and download links. Consider trying to extract this
+  // markup and add it to the previews or downloads array
   const description = $(children[3]).html();
   if (!description) throw new Error(`No ${description} found`);
 
