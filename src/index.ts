@@ -1,9 +1,16 @@
 import express from "express";
+import cors from "cors";
 import { getSkins } from "./u-he/u-he-webservice";
 
 const PORT = 3000;
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/skins", async (_, res) => {
   const skins = await getSkins();
