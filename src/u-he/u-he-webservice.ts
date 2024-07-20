@@ -1,4 +1,4 @@
-import { SkinItem } from "./u-he-webservice.types";
+import { SkinItem } from "../types/response-types";
 import { parseUheSkinsHtml } from "./u-he-webservice.util";
 
 const urls = {

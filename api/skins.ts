@@ -1,7 +1,8 @@
-export const config = {
-  runtime: "nodejs",
-};
+import { getSkins } from "../src/u-he/u-he-webservice";
 
-export function GET(request: Request) {
-  return new Response(`Skins says hello from ${process.env.VERCEL_REGION}`);
+export async function GET(request: Request) {
+  const skins = await getSkins();
+  return new Response(JSON.stringify(skins), {
+    headers: [["Content-Type", "application/json"]],
+  });
 }
