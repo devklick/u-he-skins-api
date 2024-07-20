@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 
-import { SkinItem, SrcItem } from "./u-he-webservice.types";
+import { SkinItem, SrcItem } from "../types/response-types";
 
 const baseImgUrl = "https://u-he.com/PatchLib/";
 
