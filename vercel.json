@@ -5,7 +5,8 @@
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "content-type", "value": "application/json" },
+        { "key": "Content-Type", "value": "application/json" },
+        { "key": "Cache-Control", "value": "public, s-maxage=604800000" },
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         {
           "key": "Access-Control-Allow-Origin",
