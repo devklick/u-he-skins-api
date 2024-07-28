@@ -1,3 +1,4 @@
+import axios from "axios";
 import { SkinItem } from "../types/response-types";
 import { parseUheSkinsHtml } from "./u-he-webservice.util";
 
@@ -6,7 +7,7 @@ const urls = {
 } as const;
 
 export async function getSkins(): Promise<Array<SkinItem>> {
-  const response = await fetch(urls.skins);
-  const html = await response.text();
+  const response = await axios.get(urls.skins);
+  const html = response.data.toString("utf-8");
   return await parseUheSkinsHtml(html);
 }

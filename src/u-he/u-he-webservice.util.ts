@@ -47,7 +47,7 @@ function parseRow(
   const children = $(elem).children("th,td");
   if (!children.length) return null;
 
-  const name = $(children[0]).html();
+  const name = $(children[0]).text();
   if (!name) throw new Error(`No name found`);
 
   const author = parseAuthor($, $(children[1]));
@@ -59,7 +59,7 @@ function parseRow(
   // TODO: some of the descriptions contain markup for
   // preview and download links. Consider trying to extract this
   // markup and add it to the previews or downloads array
-  const description = $(children[3]).html();
+  const description = $(children[3]).text();
   if (!description) throw new Error(`No ${description} found`);
 
   const previews = parseSrcItems($, $(children[4]));
