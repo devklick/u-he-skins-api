@@ -31,6 +31,7 @@ const baseApiHandlerPath = path.join(__dirname, "../api");
 // Find the handler files, and when a request to the express API comes in,
 // redirect it to the relevant handler
 for (const file of fs.readdirSync(path.join(__dirname, "../api"))) {
+  if (!file.match(/.[ts|js]$/)) continue;
   const filePath = path.join(baseApiHandlerPath, file);
   const module = require(filePath);
 
@@ -72,5 +73,5 @@ for (const file of fs.readdirSync(path.join(__dirname, "../api"))) {
 }
 
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
