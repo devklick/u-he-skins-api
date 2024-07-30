@@ -1,8 +1,7 @@
+import { JsonResponse } from "../src/types/response-types";
 import { getSkins } from "../src/u-he/u-he-webservice";
 
-const cacheDuration = 1000 * 60 * 60 * 24 * 7; // 1 week
-
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   const skins = await getSkins();
-  return new Response(JSON.stringify(skins));
+  return new JsonResponse(JSON.stringify(skins));
 }

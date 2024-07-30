@@ -35,3 +35,12 @@ export type SrcItem = {
    */
   url: string | undefined;
 };
+
+export class JsonResponse extends Response {
+  constructor(body: any, init?: ResponseInit) {
+    super(JSON.stringify(body), {
+      ...init,
+      headers: { ...init?.headers, "Content-Type": "application/json" },
+    });
+  }
+}
