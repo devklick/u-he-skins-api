@@ -3,5 +3,5 @@ import { getSkins } from "../src/u-he/u-he-webservice";
 
 export async function GET(_request: Request) {
   const skins = await getSkins();
-  return new JsonResponse(JSON.stringify(skins));
+  return new JsonResponse(skins);
 }
