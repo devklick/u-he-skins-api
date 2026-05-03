@@ -1,6 +1,8 @@
-import * as cheerio from "cheerio";
+import { load, Cheerio, CheerioAPI } from "cheerio";
+import { Element } from "domhandler";
 
 import { SkinItem, SrcItem } from "../types/response-types";
+import { stripTypeScriptTypes } from "node:module";
 
 const baseImgUrl = "https://u-he.com/PatchLib/";
 
@@ -23,9 +25,9 @@ const knownDeviceUrlMap = new Map([
 ]);
 
 export async function parseUheSkinsHtml(
-  html: string
+  html: string,
 ): Promise<Array<SkinItem>> {
-  const $ = cheerio.load(html, { decodeEntities: true });
+  const $ = load(html);
   const items = Array<SkinItem>();
 
   // find the body of the table and process each row within it
@@ -39,10 +41,7 @@ export async function parseUheSkinsHtml(
   return items;
 }
 
-function parseRow(
-  $: cheerio.CheerioAPI,
-  elem: cheerio.Element
-): SkinItem | null {
+function parseRow($: CheerioAPI, elem: Element): SkinItem | null {
   // Get the header and data from within the row
   const children = $(elem).children("th,td");
   if (!children.length) return null;
@@ -78,30 +77,24 @@ function parseRow(
   };
 }
 
-function parseAuthor(
-  $: cheerio.CheerioAPI,
-  content: cheerio.Cheerio<cheerio.Element>
-): SrcItem {
+function parseAuthor($: CheerioAPI, content: Cheerio<Element>): SrcItem {
   const items = parseSrcItems($, content);
   if (items.length !== 1)
     throw new Error(
-      `Expected to find exactly one author, found ${items.length}`
+      `Expected to find exactly one author, found ${items.length}`,
     );
   return items[0];
 }
 
-function parseDevice(
-  $: cheerio.CheerioAPI,
-  content: cheerio.Cheerio<cheerio.Element>
-): SrcItem {
+function parseDevice($: CheerioAPI, content: Cheerio<Element>): SrcItem {
   const name = $(content).text();
   const url = knownDeviceUrlMap.get(name);
   return { name, url };
 }
 
 function parseSrcItems(
-  $: cheerio.CheerioAPI,
-  content: cheerio.Cheerio<cheerio.Element>
+  $: CheerioAPI,
+  content: Cheerio<Element>,
 ): Array<SrcItem> {
   if (!content) throw new Error("No src items content");
   const result = Array<SrcItem>();
